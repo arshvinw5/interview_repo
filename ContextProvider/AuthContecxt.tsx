@@ -14,7 +14,12 @@ export default function AuthContextProvider({ children }: { children: React.Reac
       setSession(session);
     });
   }, []);
-  return <AuthContext.Provider value={{ session }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider
+      value={{ session, user: session?.user, isAuthenticated: !!session?.user }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export const useAuth = () => useContext(AuthContext);
